@@ -283,13 +283,14 @@ def sensitivity_analysis(base_wacc: float, rev0: float, growth_rates: list,
     print("  Rows: WACC  |  Columns: Exit Multiple\n")
 
     wacc_deltas = [-0.02, -0.01, 0.00, +0.01, +0.02, +0.03, +0.04]
-    exit_multiples = [8.0, 9.0, 10.0, 11.0, 12.0, 14.0]
+    exit_multiples = [m for m in (exit_multiple + d for d in (-3, -2, -1, 0, 1, 2, 4)) if m > 0]
 
     col_w = 10
     label_w = 12
 
     # Header row
-    header = f"{'WACC \\ EV/EBITDA':>{label_w}}"
+    corner = "WACC \\ EV/EBITDA"
+    header = f"{corner:>{label_w}}"
     for em in exit_multiples:
         header += f"{fmt_x(em):>{col_w}}"
     print(header)
